@@ -104,18 +104,6 @@ public class RoomRepositoryDaoTest {
    */
   @Test
   public void getAll() throws Exception {
-    RoomRepositoryDao roomRepositoryDao = db.repositoryDao();
-    assertThat(roomRepositoryDao.getAll()).isEmpty();
-
-    roomRepositoryDao.insertAllRepositories(repositoriesSrym.toArray(new RoomRepositoryEntity[repositoriesSrym.size()]));
-    assertThat(roomRepositoryDao.getAll())
-        .isNotEmpty()
-        .hasSize(2);
-
-    roomRepositoryDao.insertAllRepositories(repositoriesYmnder.toArray(new RoomRepositoryEntity[repositoriesYmnder.size()]));
-    assertThat(roomRepositoryDao.getAll())
-        .isNotEmpty()
-        .hasSize(4);
   }
 
   /**
@@ -123,16 +111,6 @@ public class RoomRepositoryDaoTest {
    */
   @Test
   public void findByAccountId() throws Exception {
-    RoomRepositoryDao roomRepositoryDao = db.repositoryDao();
-    roomRepositoryDao.insertAllRepositories(repositoriesSrym.toArray(new RoomRepositoryEntity[repositoriesSrym.size()]));
-    roomRepositoryDao.insertAllRepositories(repositoriesYmnder.toArray(new RoomRepositoryEntity[repositoriesYmnder.size()]));
-
-    assertThat(roomRepositoryDao.findByAccountId(srym.getId()))
-        .isNotEmpty()
-        .hasSize(2);
-    assertThat(roomRepositoryDao.findByAccountId(ymnder.getId()))
-        .isNotEmpty()
-        .hasSize(2);
   }
 
   /**
@@ -140,21 +118,6 @@ public class RoomRepositoryDaoTest {
    */
   @Test
   public void findByAccount() throws Exception {
-    RoomRepositoryDao roomRepositoryDao = db.repositoryDao();
-    roomRepositoryDao.insertAllRepositories(repositoriesSrym.toArray(new RoomRepositoryEntity[repositoriesSrym.size()]));
-    roomRepositoryDao.insertAllRepositories(repositoriesYmnder.toArray(new RoomRepositoryEntity[repositoriesYmnder.size()]));
-
-    assertThat(roomRepositoryDao.findByAccount("foo")).isEmpty();
-    assertThat(roomRepositoryDao.findByAccount("srym")).isEmpty();
-    assertThat(roomRepositoryDao.findByAccount("ymnder")).isEmpty();
-
-    roomRepositoryDao.insertAllAccounts(srym, ymnder);
-    assertThat(roomRepositoryDao.findByAccount("srym"))
-        .isNotEmpty()
-        .hasSize(2);
-    assertThat(roomRepositoryDao.findByAccount("ymnder"))
-        .isNotEmpty()
-        .hasSize(2);
   }
 
   /**
@@ -162,12 +125,6 @@ public class RoomRepositoryDaoTest {
    */
   @Test
   public void insertAllRepositories() throws Exception {
-    RoomRepositoryDao roomRepositoryDao = db.repositoryDao();
-    roomRepositoryDao.insertAllRepositories(repositoriesSrym.toArray(new RoomRepositoryEntity[repositoriesSrym.size()]));
-    roomRepositoryDao.insertAllRepositories(repositoriesYmnder.toArray(new RoomRepositoryEntity[repositoriesYmnder.size()]));
-    assertThat(roomRepositoryDao.getAll())
-        .isNotEmpty()
-        .hasSize(4);
   }
 
   /**
@@ -175,20 +132,6 @@ public class RoomRepositoryDaoTest {
    */
   @Test
   public void deleteAllRepositories() throws Exception {
-    RoomRepositoryDao roomRepositoryDao = db.repositoryDao();
-    roomRepositoryDao.insertAllRepositories(repositoriesSrym.toArray(new RoomRepositoryEntity[repositoriesSrym.size()]));
-    roomRepositoryDao.insertAllRepositories(repositoriesYmnder.toArray(new RoomRepositoryEntity[repositoriesYmnder.size()]));
-    assertThat(roomRepositoryDao.getAll())
-        .isNotEmpty()
-        .hasSize(4);
-
-    roomRepositoryDao.deleteAllRepositories(repositoriesSrym.toArray(new RoomRepositoryEntity[repositoriesSrym.size()]));
-    assertThat(roomRepositoryDao.getAll())
-        .isNotEmpty()
-        .hasSize(2);
-
-    roomRepositoryDao.deleteAllRepositories(repositoriesYmnder.toArray(new RoomRepositoryEntity[repositoriesSrym.size()]));
-    assertThat(roomRepositoryDao.getAll()).isEmpty();
   }
 
   /**
@@ -196,12 +139,6 @@ public class RoomRepositoryDaoTest {
    */
   @Test
   public void insertAllAccounts() throws Exception {
-    RoomRepositoryDao roomRepositoryDao = db.repositoryDao();
-    roomRepositoryDao.insertAllAccounts(srym, ymnder);
-
-    assertThat(db.accountDao().getAll())
-        .isNotEmpty()
-        .hasSize(2);
   }
 
   /**
@@ -209,18 +146,6 @@ public class RoomRepositoryDaoTest {
    */
   @Test
   public void insertRepositoriesAndAccounts() throws Exception {
-    RoomRepositoryDao roomRepositoryDao = db.repositoryDao();
-    RoomAccountDao accountDao = db.accountDao();
-    assertThat(roomRepositoryDao.getAll()).isEmpty();
-    assertThat(accountDao.getAll()).isEmpty();
-
-    roomRepositoryDao.insertRepositoriesAndAccounts(repositoriesSrym, Collections.singletonList(srym));
-    assertThat(roomRepositoryDao.getAll())
-        .isNotEmpty()
-        .hasSize(2);
-    assertThat(accountDao.getAll())
-        .isNotEmpty()
-        .hasSize(1);
   }
 
   /**
@@ -228,23 +153,6 @@ public class RoomRepositoryDaoTest {
    */
   @Test
   public void deleteAndInsertRepositoriesAndAccounts() throws Exception {
-    RoomRepositoryDao roomRepositoryDao = db.repositoryDao();
-    RoomAccountDao accountDao = db.accountDao();
-    roomRepositoryDao.insertRepositoriesAndAccounts(repositoriesSrym, Collections.singletonList(srym));
-    assertThat(roomRepositoryDao.getAll())
-        .isNotEmpty()
-        .hasSize(2);
-    assertThat(accountDao.getAll())
-        .isNotEmpty()
-        .hasSize(1);
-
-    roomRepositoryDao.deleteAndInsertRepositoriesAndAccounts("srym", Collections.singletonList(repositoriesSrym.get(0)), Collections.singletonList(srym));
-    assertThat(roomRepositoryDao.getAll())
-        .isNotEmpty()
-        .hasSize(1);
-    assertThat(accountDao.getAll())
-        .isNotEmpty()
-        .hasSize(1);
   }
 
 }

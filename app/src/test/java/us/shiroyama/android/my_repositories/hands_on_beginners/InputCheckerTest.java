@@ -19,7 +19,6 @@ public class InputCheckerTest {
    */
   @Before
   public void setUp() throws Exception {
-    inputChecker = new InputChecker();
   }
 
   /**
@@ -30,8 +29,6 @@ public class InputCheckerTest {
   @Test
   public void isValid() throws Exception {
     String input = "srym";
-    boolean actual = inputChecker.isValid(input);
-    assertThat(actual).isTrue();
   }
 
   /**
@@ -42,8 +39,6 @@ public class InputCheckerTest {
   @Test
   public void isValid_inputBlank_resultsFalse() throws Exception {
     String input = "";
-    boolean actual = inputChecker.isValid(input);
-    assertThat(actual).isFalse();
   }
 
   /**
@@ -54,16 +49,6 @@ public class InputCheckerTest {
   @Test
   public void isValid_inputIllegalCharacters_resultsFalse() throws Exception {
     String input = "abc$";
-    boolean actual = inputChecker.isValid(input);
-    assertThat(actual).isFalse();
-
-    input = "ab cd";
-    actual = inputChecker.isValid(input);
-    assertThat(actual).isFalse();
-
-    input = "--abc";
-    actual = inputChecker.isValid(input);
-    assertThat(actual).isFalse();
   }
 
   /**
@@ -74,12 +59,6 @@ public class InputCheckerTest {
   @Test
   public void isValid_inputLessThan4_resultsFalse() throws Exception {
     String input = "abc";
-    boolean actual = inputChecker.isValid(input);
-    assertThat(actual).isFalse();
-
-    input = "$$$";
-    actual = inputChecker.isValid(input);
-    assertThat(actual).isFalse();
   }
 
   /**
@@ -89,10 +68,9 @@ public class InputCheckerTest {
    * <p>
    * ヒント: <code>@Test(expected = 例外.class)</code>
    */
-  @Test(expected = NullPointerException.class)
+  @Test
   public void isValid_inputNull_resultsNPE() throws Exception {
     String input = null;
-    inputChecker.isValid(input);
   }
 
 }

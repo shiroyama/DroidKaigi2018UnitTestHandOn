@@ -53,9 +53,6 @@ public class AccountInputPresenterTest {
    */
   @Test
   public void onClickViewRepositoryButton_error_field_required() throws Exception {
-    when(validator.validate(any())).thenReturn(new AccountValidator.Result(false, R.string.error_field_required));
-    presenter.onClickViewRepositoryButton(null);
-    verify(view, times(1)).showInputError(eq(R.string.error_field_required));
   }
 
   /**
@@ -64,9 +61,6 @@ public class AccountInputPresenterTest {
    */
   @Test
   public void onClickViewRepositoryButton_error_invalid_account() throws Exception {
-    when(validator.validate(any())).thenReturn(new AccountValidator.Result(false, R.string.error_invalid_account));
-    presenter.onClickViewRepositoryButton("***");
-    verify(view, times(1)).showInputError(eq(R.string.error_invalid_account));
   }
 
   /**
@@ -75,9 +69,5 @@ public class AccountInputPresenterTest {
    */
   @Test
   public void onClickViewRepositoryButton() throws Exception {
-    when(validator.validate(any())).thenReturn(new AccountValidator.Result(true, 0));
-    presenter.onClickViewRepositoryButton("srym");
-    verify(view, times(1)).getActivity();
-    verify(view, times(1)).startActivity(any(Intent.class));
   }
 }

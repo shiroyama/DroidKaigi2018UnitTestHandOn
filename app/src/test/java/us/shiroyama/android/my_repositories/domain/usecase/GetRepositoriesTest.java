@@ -57,9 +57,6 @@ public class GetRepositoriesTest {
    */
   @Test
   public void enqueue() throws Exception {
-    GetRepositories.Param param = GetRepositories.Param.newInstance("srym");
-    getRepositories.enqueue(param);
-    verify(taskQueue, times(1)).enqueue(any(Task.class));
   }
 
   /**
@@ -70,14 +67,6 @@ public class GetRepositoriesTest {
    */
   @Test
   public void buildTask_noRefresh_success() throws Exception {
-    GetRepositories.Param param = GetRepositories.Param.newInstance("srym");
-    Task task = getRepositories.buildTask(param);
-    task.run();
-    verify(repository, times(1)).getUserRepositories(eq("srym"));
-    verify(repository, never()).refreshUserRepositories(eq("srym"));
-    verify(mapper, never()).convert(any());
-    verify(mapper, times(1)).convertList(anyList());
-    verify(bus, times(1)).post(any(GetRepositories.OnSuccessGetRepositories.class));
   }
 
   /**
@@ -88,15 +77,6 @@ public class GetRepositoriesTest {
    */
   @Test
   public void buildTask_noRefresh_error() throws Exception {
-    doThrow(new ApiException()).when(repository).getUserRepositories(eq("srym"));
-    GetRepositories.Param param = GetRepositories.Param.newInstance("srym");
-    Task task = getRepositories.buildTask(param);
-    task.run();
-    verify(repository, times(1)).getUserRepositories(eq("srym"));
-    verify(repository, never()).refreshUserRepositories(eq("srym"));
-    verify(mapper, never()).convert(any());
-    verify(mapper, never()).convertList(anyList());
-    verify(bus, times(1)).post(any(GetRepositories.OnFailureGetRepositories.class));
   }
 
   /**
@@ -107,14 +87,6 @@ public class GetRepositoriesTest {
    */
   @Test
   public void buildTask_refresh_success() throws Exception {
-    GetRepositories.Param param = GetRepositories.Param.newInstance("srym", true);
-    Task task = getRepositories.buildTask(param);
-    task.run();
-    verify(repository, times(1)).refreshUserRepositories(eq("srym"));
-    verify(repository, never()).getUserRepositories(eq("srym"));
-    verify(mapper, never()).convert(any());
-    verify(mapper, times(1)).convertList(anyList());
-    verify(bus, times(1)).post(any(GetRepositories.OnSuccessGetRepositories.class));
   }
 
   /**
@@ -125,15 +97,6 @@ public class GetRepositoriesTest {
    */
   @Test
   public void buildTask_refresh_error() throws Exception {
-    doThrow(new ApiException()).when(repository).refreshUserRepositories(eq("srym"));
-    GetRepositories.Param param = GetRepositories.Param.newInstance("srym", true);
-    Task task = getRepositories.buildTask(param);
-    task.run();
-    verify(repository, times(1)).refreshUserRepositories(eq("srym"));
-    verify(repository, never()).getUserRepositories(eq("srym"));
-    verify(mapper, never()).convert(any());
-    verify(mapper, never()).convertList(anyList());
-    verify(bus, times(1)).post(any(GetRepositories.OnFailureGetRepositories.class));
   }
 
 }

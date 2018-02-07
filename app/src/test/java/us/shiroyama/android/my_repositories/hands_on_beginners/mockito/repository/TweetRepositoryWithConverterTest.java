@@ -32,8 +32,6 @@ public class TweetRepositoryWithConverterTest {
    */
   @Before
   public void setUp() throws Exception {
-    converter = spy(new TweetConverter());
-    repository = new TweetRepositoryWithConverter(new LocalTweetDataSource.MockTweetDataSource(), converter);
   }
 
   /**
@@ -44,9 +42,6 @@ public class TweetRepositoryWithConverterTest {
    */
   @Test
   public void getTimeline() throws Exception {
-    assertThat(repository.getTimeline()).hasSize(3);
-    verify(converter, never()).convert(any(Tweet.class));
-    verify(converter, never()).convertList(anyList());
   }
 
   /**
@@ -56,9 +51,6 @@ public class TweetRepositoryWithConverterTest {
    */
   @Test
   public void getTimelineBody() throws Exception {
-    assertThat(repository.getTimelineBody()).containsExactly("foo", "bar", "baz");
-    verify(converter, never()).convert(any(Tweet.class));
-    verify(converter, times(1)).convertList(anyList());
   }
 
 }

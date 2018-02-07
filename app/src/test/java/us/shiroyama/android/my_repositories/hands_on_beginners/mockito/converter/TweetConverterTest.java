@@ -30,8 +30,6 @@ public class TweetConverterTest {
    */
   @Test
   public void convert() throws Exception {
-    String tweetBody = converter.convert(Tweet.bodyOf("foo"));
-    assertThat(tweetBody).isEqualTo("foo");
   }
 
   /**
@@ -39,8 +37,6 @@ public class TweetConverterTest {
    */
   @Test
   public void convert_inputEmpty_returnsEmpty() throws Exception {
-    String tweetBody = converter.convert(Tweet.bodyOf(""));
-    assertThat(tweetBody).isEmpty();
   }
 
   /**
@@ -50,15 +46,6 @@ public class TweetConverterTest {
    */
   @Test
   public void convertList() throws Exception {
-    List<String> bodies = converter.convertList(Arrays.asList(
-        Tweet.bodyOf("foo"),
-        Tweet.bodyOf("bar"),
-        Tweet.bodyOf("baz")
-    ));
-    assertThat(bodies)
-        .isNotEmpty()
-        .hasSize(3)
-        .containsExactly("foo", "bar", "baz");
   }
 
   /**
@@ -66,8 +53,6 @@ public class TweetConverterTest {
    */
   @Test
   public void convertList_inputEmptyList_returnsEmptyList() throws Exception {
-    List<String> bodies = converter.convertList(Collections.emptyList());
-    assertThat(bodies).isEmpty();
   }
 
 }

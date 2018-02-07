@@ -30,11 +30,6 @@ public class TweetRepositoryTest {
    */
   @Before
   public void setUp() throws Exception {
-    LocalTweetDataSource dataSource = mock(LocalTweetDataSource.class);
-    when(dataSource.getTimeline()).thenReturn(
-        Arrays.asList(Tweet.bodyOf("foo"), Tweet.bodyOf("bar"), Tweet.bodyOf("baz"))
-    );
-    tweetRepository = new TweetRepository(dataSource);
   }
 
   /**
@@ -43,11 +38,6 @@ public class TweetRepositoryTest {
    */
   @Test
   public void getTimeline() throws Exception {
-    List<Tweet> tweets = tweetRepository.getTimeline();
-    assertThat(tweets)
-        .isNotEmpty()
-        .hasSize(3)
-        .containsExactly(Tweet.bodyOf("foo"), Tweet.bodyOf("bar"), Tweet.bodyOf("baz"));
   }
 
 }

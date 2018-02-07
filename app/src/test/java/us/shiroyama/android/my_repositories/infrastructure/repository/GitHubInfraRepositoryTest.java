@@ -53,10 +53,6 @@ public class GitHubInfraRepositoryTest {
    */
   @Test
   public void getUserRepositories_localDataSource_hit() throws Exception {
-    when(localDataSource.getUserRepositories(eq("srym"))).thenReturn(Collections.singletonList(new RepositoryEntity()));
-    assertThat(repository.getUserRepositories("srym")).isNotEmpty();
-    verify(remoteDataSource, never()).getUserRepositories(anyString());
-    verify(localDataSource, never()).insertRepositoriesAndAccounts(anyList(), anyList());
   }
 
   /**
@@ -67,10 +63,6 @@ public class GitHubInfraRepositoryTest {
    */
   @Test
   public void getUserRepositories_localDataSource_not_hit_and_remoteDataSource_empty() throws Exception {
-    when(localDataSource.getUserRepositories(eq("srym"))).thenReturn(Collections.emptyList());
-    when(remoteDataSource.getUserRepositories(eq("srym"))).thenReturn(Collections.emptyList());
-    assertThat(repository.getUserRepositories("srym")).isEmpty();
-    verify(localDataSource, never()).insertRepositoriesAndAccounts(anyList(), anyList());
   }
 
   /**
@@ -81,12 +73,6 @@ public class GitHubInfraRepositoryTest {
    */
   @Test
   public void getUserRepositories_localDataSource_not_hit_and_remoteDataSource_hit() throws Exception {
-    when(localDataSource.getUserRepositories(eq("srym"))).thenReturn(Collections.emptyList());
-    when(remoteDataSource.getUserRepositories(eq("srym"))).thenReturn(Collections.singletonList(new RepositoryEntity(
-        120437130, "conference-app-2018", "ymnder/conference-app-2018", "https://github.com/ymnder/conference-app-2018", false, "The Official Conference App for DroidKaigi 2018 Tokyo", new AccountEntity(), null, null, null
-    )));
-    assertThat(repository.getUserRepositories("srym")).isNotEmpty();
-    verify(localDataSource, times(1)).insertRepositoriesAndAccounts(anyList(), anyList());
   }
 
   /**
@@ -96,9 +82,6 @@ public class GitHubInfraRepositoryTest {
    */
   @Test
   public void refreshUserRepositories_remoteDataSource_no_hit() throws Exception {
-    when(remoteDataSource.getUserRepositories(eq("srym"))).thenReturn(Collections.emptyList());
-    assertThat(repository.refreshUserRepositories("srym")).isEmpty();
-    verify(localDataSource, never()).deleteAndInsertRepositoriesAndAccounts(anyString(), anyList(), anyList());
   }
 
   /**
@@ -108,12 +91,6 @@ public class GitHubInfraRepositoryTest {
    */
   @Test
   public void refreshUserRepositories_remoteDataSource_hit() throws Exception {
-    when(remoteDataSource.getUserRepositories(eq("srym"))).thenReturn(Collections.emptyList());
-    when(remoteDataSource.getUserRepositories(eq("srym"))).thenReturn(Collections.singletonList(new RepositoryEntity(
-        120437130, "conference-app-2018", "ymnder/conference-app-2018", "https://github.com/ymnder/conference-app-2018", false, "The Official Conference App for DroidKaigi 2018 Tokyo", new AccountEntity(), null, null, null
-    )));
-    assertThat(repository.refreshUserRepositories("srym")).isNotEmpty();
-    verify(localDataSource, times(1)).deleteAndInsertRepositoriesAndAccounts(anyString(), anyList(), anyList());
   }
 
 }

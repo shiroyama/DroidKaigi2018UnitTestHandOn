@@ -28,14 +28,6 @@ public class Sandbox {
    */
   @Test
   public void simple_assertion_for_numbers() throws Exception {
-    Assertions.assertThat(123).isEqualTo(123);
-
-    Assertions.assertThat(1 + 1).isEqualTo(2);
-
-    Assertions.assertThat(123)
-        .isNotZero()
-        .isGreaterThan(100)
-        .isLessThan(234);
   }
 
   /**
@@ -51,14 +43,5 @@ public class Sandbox {
    */
   @Test
   public void simple_assertion_for_strings() throws Exception {
-    Assertions.assertThat("Alice").isEqualTo("Alice");
-
-    Assertions.assertThat("Alice")
-        .isNotEmpty()
-        .isNotEqualTo("Bob");
-
-    Assertions.assertThat("Alice")
-        .startsWith("Al")
-        .isEqualToIgnoringCase("alice");
   }
 }
