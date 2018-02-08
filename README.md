@@ -8,6 +8,8 @@
 
 [Unit Testing in a Nutshell - DroidKaigi 2018](https://speakerdeck.com/srym/unit-testing-in-a-nutshell-droidkaigi-2018)
 
+[Kotlin でテストを書く](https://speakerdeck.com/numa08/kotlin-detesutowoshu-ku)
+
 # 課題
 
 本レポジトリをcloneしたらAndroid Studioで開いて実際にUnit Testを書いていきます。
