@@ -11,7 +11,7 @@ import android.support.annotation.NonNull;
 class InputChecker {
   boolean isValid(@NonNull String text) {
     if (text.length() < 4) return false;
-    if (!text.matches("[a-zA-z0-4]+")) return false;
+    if (!text.matches("[a-zA-Z0-9]+")) return false;
     return true;
   }
 }
